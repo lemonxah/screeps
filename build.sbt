@@ -64,7 +64,7 @@ upload := {
   val connection = new URL(url).openConnection()
   connection.setDoOutput(true)
   connection.setDoInput(true)
-  val authToken = Base64.encodeBase64String(("lemonxah:M8kio9ou9u").getBytes())
+  val authToken = Base64.encodeBase64String(("lemonxah:").getBytes())
   connection.setRequestProperty("Authorization", "Basic "+authToken)
   connection.setRequestProperty("Content-Type", "application/json; charset=utf-8")
 
