@@ -21,8 +21,8 @@ libraryDependencies ++= Seq(
 )
 
 scalaJSReflectSelectors ++= Seq(
-  selectDescendentClasses("org.singingwizard.screeps.ai.Task") -> reflectClassByName(),
-  selectDescendentClasses("org.singingwizard.screeps.ai.Task") -> reflectDeclaredConstructors()
+  selectDescendentClasses("com.lemonxah.screeps.ai.Task") -> reflectClassByName(),
+  selectDescendentClasses("com.lemonxah.screeps.ai.Task") -> reflectDeclaredConstructors()
 )
 
 scalacOptions ++= Seq("-feature")
@@ -60,11 +60,11 @@ upload := {
   import java.io._
   import java.net.HttpURLConnection
 
-  val url = "https://dawnsquad.com/api/user/code"
+  val url = "http://dawnsquad.com/api/user/code"
   val connection = new URL(url).openConnection()
   connection.setDoOutput(true)
   connection.setDoInput(true)
-  val authToken = Base64.encodeBase64String(("lemonxah:").getBytes())
+  val authToken = Base64.encodeBase64String("lemonxah:".getBytes())
   connection.setRequestProperty("Authorization", "Basic "+authToken)
   connection.setRequestProperty("Content-Type", "application/json; charset=utf-8")
 
