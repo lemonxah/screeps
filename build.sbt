@@ -17,7 +17,9 @@ testFrameworks += new TestFramework("utest.runner.Framework")
 libraryDependencies ++= Seq(
     "com.lihaoyi" %%% "utest" % "0.3.0" % "test",
     "com.github.benhutchison" %%% "prickle" % "1.1.10",
-    "be.doeraene" %%% "scalajs-reflection" % "0.1.0"
+    "be.doeraene" %%% "scalajs-reflection" % "0.1.0",
+    "org.scalaz" %%% "scalaz-core" % "7.2.7",
+    "io.monix" %%% "monix" % "2.1.0"
 )
 
 scalaJSReflectSelectors ++= Seq(
@@ -30,7 +32,7 @@ scalacOptions ++= Seq("-feature")
 val packageJS = taskKey[File]("Package the Screeps JS.")
 val packageFastJS = taskKey[File]("Package the Screeps JS (using fastOptJS version).")
 val jsLauncher = taskKey[File]("The launcher script for Screeps scripts")
-val copy = taskKey[Unit]("copy file to server")
+val packageJS_Copy = taskKey[Unit]("copy file to server")
 
 jsLauncher := baseDirectory.value / "screeps-launcher.js"
 
@@ -40,12 +42,15 @@ def packageJSCode(name: String, launcher: File, code: File, out: File): File = {
 	import java.util.Date
 	
   println(s"Combining ${code.name} and ${launcher.name} into ${out.name}.")
-  IO.write(out, s"// Generated from project ${name} at ${new Date().toString()}\n\n" + IO.read(code) + IO.read(launcher))
+  IO.write(out, s"// Generated from project $name at ${new Date().toString}\n\n" + IO.read(code) + IO.read(launcher))
   out
 }
 
-copy := {
-  IO.copyFile(new File("target/lemonxah-screeps-package.js"),
+packageJS_Copy := {
+  val code = (fullOptJS in Compile).value.data
+  val out = target.value / "lemonxah-screeps-package.js"
+  val f = packageJSCode(name.value, jsLauncher.value, code, out)
+  IO.copyFile(f,
     new File("/Users/lemonxah/Library/Application Support/Screeps/scripts/dawnsquad_com___21025/scala/main.js"))
 }
 

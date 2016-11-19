@@ -30,14 +30,10 @@ class Loop() {
       case (name, creep) ⇒ !Game.creeps.contains(name)
     }.foreach {
       case (name, creep) ⇒
-        println(s"Removing dedcrep: $name, yay test")
+        println(s"Removing dedcrep: $name")
         mcreeps.delete(name)
     }
 
-//    Game.creeps.foreach {
-//      case (name, creep) ⇒ println(s"$name - ${creep.fatigue}")
-//    }
-    Game.spawns.values.head.createCreep(js.Array(MOVE, MOVE, MOVE, MOVE, MOVE))
-
+    //Game.spawns.values.head.createCreep(js.Array(MOVE, MOVE, MOVE, MOVE, MOVE))
   }
 }
