@@ -30,6 +30,7 @@ scalacOptions ++= Seq("-feature")
 val packageJS = taskKey[File]("Package the Screeps JS.")
 val packageFastJS = taskKey[File]("Package the Screeps JS (using fastOptJS version).")
 val jsLauncher = taskKey[File]("The launcher script for Screeps scripts")
+val copy = taskKey[Unit]("copy file to server")
 
 jsLauncher := baseDirectory.value / "screeps-launcher.js"
 
@@ -41,6 +42,11 @@ def packageJSCode(name: String, launcher: File, code: File, out: File): File = {
   println(s"Combining ${code.name} and ${launcher.name} into ${out.name}.")
   IO.write(out, s"// Generated from project ${name} at ${new Date().toString()}\n\n" + IO.read(code) + IO.read(launcher))
   out
+}
+
+copy := {
+  IO.copyFile(new File("target/lemonxah-screeps-package.js"),
+    new File("/Users/lemonxah/Library/Application Support/Screeps/scripts/dawnsquad_com___21025/scala/main.js"))
 }
 
 packageJS := {
@@ -60,7 +66,7 @@ upload := {
   import java.io._
   import java.net.HttpURLConnection
 
-  val url = "http://dawnsquad.com/api/user/code"
+  val url = "https://screeps.com/api/user/code"
   val connection = new URL(url).openConnection()
   connection.setDoOutput(true)
   connection.setDoInput(true)
@@ -71,7 +77,7 @@ upload := {
   val program = IO.read(packageJS.value)
   val quotedProgram = program.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"")
 
-  val output = connection.getOutputStream()
+  val output = connection.getOutputStream
   val writer = new PrintWriter(new OutputStreamWriter(output), true)
   try {
     writer.append(s"""{"branch":"sbt-upload","modules":{"main":"$quotedProgram"}}""")
@@ -80,7 +86,7 @@ upload := {
     output.close()
   }
 
-  val input = connection.getInputStream()
+  val input = connection.getInputStream
   val reader = new BufferedReader(new InputStreamReader(input))
   try {
     println(reader.readLine())
@@ -88,8 +94,8 @@ upload := {
     writer.close()
     output.close()
   }
-  println(connection.asInstanceOf[HttpURLConnection].getResponseCode())
-  println(connection.asInstanceOf[HttpURLConnection].getResponseMessage())
+  println(connection.asInstanceOf[HttpURLConnection].getResponseCode)
+  println(connection.asInstanceOf[HttpURLConnection].getResponseMessage)
 }
 
 val measurePackages = taskKey[(Int, Int)]("Compute the size of the packages.")
