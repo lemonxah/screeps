@@ -40,7 +40,7 @@ class Loop() {
   def removeDedcreps(creps: Dictionary[Creep]): Task[Unit] = Task.delay {
     getMemoryCreeps.foreach { mc ⇒
       creps.foreach { case(name, creep) ⇒
-        println(s"Removing dedcrep: $name, from monad")
+        println(s"Removing dedcrep: $name")
         mc.delete(name)
       }
     }
@@ -51,6 +51,6 @@ class Loop() {
 
     getMemoryCreeps.flatMap(getDedcreps).flatMap(removeDedcreps).runAsync
 
-    Game.spawns.values.head.createCreep(js.Array(MOVE, MOVE, MOVE, MOVE, MOVE))
+    Game.spawns.values.head.createCreep(js.Array(MOVE, MOVE))
   }
 }
