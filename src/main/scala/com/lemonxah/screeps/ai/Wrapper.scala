@@ -42,6 +42,13 @@ object Wrapper {
     }
   }
 
+  def removeDedcrep(name: String): Task[String] = {
+    getMemoryCreeps.map { mc ⇒
+        mc.delete(name)
+        s"Removed dedcrep: $name"
+      }
+    }
+
 
   def spawn(s: String)(game: Game): Task[Spawn] = Task.delay(game.spawns(s))
 
