@@ -1,5 +1,8 @@
 package com.lemonxah.screeps.ai.jobs
 
+import com.lemonxah.screeps.api._
+import com.lemonxah.screeps
+
 /**
   * Project: Screeps
   * Package: com.lemonxah.screeps.ai.jobs
@@ -8,6 +11,11 @@ package com.lemonxah.screeps.ai.jobs
   * https://github.com/lemonxah
   * http://stackoverflow.com/users/2919672/lemon-xah
   */
+
+trait CreepPool {
+  def creeps: Vector[Creep]
+}
+
 object Jobs {
 
 }
