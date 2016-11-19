@@ -1,5 +1,7 @@
 package com.lemonxah.screeps.api
 
+import monix.eval.Task
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
@@ -681,17 +683,17 @@ object ScreepsContext {
   def RESOURCES_ALL: js.Array[String] = current.RESOURCES_ALL
   def COLORS_ALL: js.Array[Int] = current.COLORS_ALL
 
-  def Game: Game = current.Game
+  def Game: Task[Game] = Task.delay(current.Game)
 
-  def Memory: js.Dynamic = current.Memory
+  def Memory: Task[js.Dynamic] = Task.delay(current.Memory)
 
-  def RawMemory: RawMemory = current.RawMemory
+  def RawMemory: Task[RawMemory] = Task.delay(current.RawMemory)
 
-  def PathFinder: PathFinder = current.PathFinder
+  def PathFinder: Task[PathFinder] = Task.delay(current.PathFinder)
 
-  def Console: Console = current.Console
+  def Console: Task[Console] = Task.delay(current.Console)
 
-  def Room: RoomTypeObject = current.Room
+  def Room: Task[RoomTypeObject] = Task.delay(current.Room)
 
-  def LoDash: js.Dynamic = current.LoDash
+  def LoDash: Task[js.Dynamic] = Task.delay(current.LoDash)
 }

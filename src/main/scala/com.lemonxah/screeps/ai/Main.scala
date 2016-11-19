@@ -4,6 +4,8 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
 import com.lemonxah.screeps.api._
+import monix.execution._
+import monix.execution.Scheduler.Implicits.global
 
 object Main extends js.JSApp {
   def main(): Unit = {
@@ -17,7 +19,7 @@ object Main extends js.JSApp {
     val loop = new Loop()
     () => {
       try {
-        loop.loop()
+        loop.loop.runAsync
       } catch {
         case e: Throwable =>
           ctx.Console.log(s"Exception while running loop: $e")
