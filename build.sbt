@@ -1,6 +1,6 @@
 // Turn this project into a Scala.js project by importing these settings
 enablePlugins(ScalaJSPlugin)
-enablePlugins(ScalaJSReflectionPlugin)
+//enablePlugins(ScalaJSReflectionPlugin)
 
 name := "Screeps"
 
@@ -22,10 +22,10 @@ libraryDependencies ++= Seq(
     "io.monix" %%% "monix" % "2.1.0"
 )
 
-scalaJSReflectSelectors ++= Seq(
-  selectDescendentClasses("com.lemonxah.screeps.ai.Task") -> reflectClassByName(),
-  selectDescendentClasses("com.lemonxah.screeps.ai.Task") -> reflectDeclaredConstructors()
-)
+//scalaJSReflectSelectors ++= Seq(
+//  selectDescendentClasses("com.lemonxah.screeps.ai.Task") -> reflectClassByName(),
+//  selectDescendentClasses("com.lemonxah.screeps.ai.Task") -> reflectDeclaredConstructors()
+//)
 
 scalacOptions ++= Seq("-feature")
 
