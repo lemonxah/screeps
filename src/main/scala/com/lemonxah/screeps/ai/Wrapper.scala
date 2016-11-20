@@ -23,6 +23,9 @@ object JSON extends js.Object {
 
 object Wrapper {
   import ScreepsContext._
+  implicit class dynamicConversions(v: js.Dynamic) {
+    def as[A] = v.asInstanceOf[A]
+  }
 
   def getMemoryCreeps: Task[Dictionary[Creep]] = Memory.map(_.creeps.asInstanceOf[Dictionary[Creep]])
   def getDedcreps(creps: Dictionary[Creep]): Task[Dictionary[Creep]] = {
