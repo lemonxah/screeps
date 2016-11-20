@@ -46,7 +46,7 @@ object Tasks {
           }
         }
         if (js.isUndefined(mem.workers) || mem.workers.as[js.Dictionary[Creep]].keys.size < count) {
-          if (spawn.energy > 200) {
+          if (game.rooms.values.head.energyAvailable > 200) {
             val n = spawn.createCreep(js.Array(WORK, CARRY, MOVE))
             println(s"spawning $n")
           } else {
