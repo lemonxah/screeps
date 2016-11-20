@@ -11,7 +11,6 @@ import com.lemonxah.screeps.ai.tasks.Tasks._
 import com.lemonxah.screeps.api._
 
 class Loop() {
-
   def run: Task[Unit] = for {
     _ ← usePathfinder(true)
     _ ← manageCreeps(6)
