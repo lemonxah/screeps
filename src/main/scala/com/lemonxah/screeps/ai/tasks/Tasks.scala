@@ -20,7 +20,7 @@ object Tasks {
   implicit def dynamicToBoolean(v: js.Dynamic): Boolean = v.toString.toBoolean
   implicit def dynamicToInt(v: js.Dynamic): Int = v.toString.toInt
 
-  def manageCreeps(count: Int) = Memory.flatMap { mem ⇒
+  def manageCreeps(count: Int): Task[js.Dictionary[Creep]] = Memory.flatMap { mem ⇒
     Game.map { game ⇒
       // checking workers for dedcreps
       if (!js.isUndefined(mem.workers)) {
@@ -57,6 +57,7 @@ object Tasks {
         mem.newname = spawn.spawning.name
         println(s"waiting spawn of ${spawn.spawning.name}")
       }
+      mem.workers.as[js.Dictionary[Creep]]
     }
   }
 
